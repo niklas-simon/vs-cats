@@ -19,7 +19,7 @@ export default class CatManager {
 
     private load() {
         return new Promise<Uri>((resolve, reject) => {
-            get("https://cataas.com/cat?type=sq", result => {
+            get("https://cataas.com/cat?type=square", result => {
                 const data = [] as Buffer[];
                 result.on("data", chunk => data.push(chunk));
                 result.on("end", () => {
