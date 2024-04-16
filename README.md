@@ -33,3 +33,7 @@ Fixed Extension not working because of change in API settings
 
 - Moved from [Cat as a Service](https://cataas.com) to [The Cat API](https://thecatapi.com/) due to frequent downtime of Cat as a Service.
 - Fixed some minor Bugs
+
+### 1.1.1
+
+Fixed bug that cats were only displayed when running the extension in debug mode

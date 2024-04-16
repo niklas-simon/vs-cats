@@ -45,11 +45,18 @@ export default class CatManager {
         const cat = (JSON.parse(jsonStr.data.toString()) as Cat[])[0];
         const res = await this.request(cat.url);
         const uri = Uri.joinPath(this.context.extensionUri, "cats", `cat${this.count++}.${res.type?.replace("image/", "") || "jpg"}`);
-        await sharp(res.data)
+        const buffer = await new Promise<Buffer>((resolve, reject) => sharp(res.data)
             .resize(
                 cat.height > cat.width ? Math.round(cat.width * 300 / cat.height) : 300,
                 cat.width > cat.height ? Math.round(cat.height * 300 / cat.width) : 300
-            ).toFile(uri.fsPath);
+            ).toBuffer((err, buff) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(buff);
+                }
+            }));
+        await workspace.fs.writeFile(uri, buffer);
         return uri;
     }
 

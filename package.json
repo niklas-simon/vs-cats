@@ -2,7 +2,7 @@
   "name": "vs-cats",
   "displayName": "vs-cats",
   "description": "gives cats a home within your code",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icon": "resources/logo.png",
   "repository": {
     "url": "https://github.com/niklas-simon/vs-cats"
