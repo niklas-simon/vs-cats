@@ -1,6 +1,7 @@
 import { get } from "https";
 import { ExtensionContext, Uri, workspace } from "vscode";
-import * as sharp from "sharp"; 
+import Jimp = require("jimp");
+import path = require("path");
 
 interface Cat {
     id: string,
@@ -44,19 +45,14 @@ export default class CatManager {
         const jsonStr = await this.request("https://api.thecatapi.com/v1/images/search");
         const cat = (JSON.parse(jsonStr.data.toString()) as Cat[])[0];
         const res = await this.request(cat.url);
-        const uri = Uri.joinPath(this.context.extensionUri, "cats", `cat${this.count++}.${res.type?.replace("image/", "") || "jpg"}`);
-        const buffer = await new Promise<Buffer>((resolve, reject) => sharp(res.data)
+        const folder = Uri.joinPath(this.context.extensionUri, "cats");
+        await workspace.fs.createDirectory(folder);
+        const uri = Uri.joinPath(folder, `cat${this.count++}.${res.type?.replace("image/", "") || "jpg"}`);
+        (await Jimp.read(res.data))
             .resize(
                 cat.height > cat.width ? Math.round(cat.width * 300 / cat.height) : 300,
                 cat.width > cat.height ? Math.round(cat.height * 300 / cat.width) : 300
-            ).toBuffer((err, buff) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(buff);
-                }
-            }));
-        await workspace.fs.writeFile(uri, buffer);
+            ).write(uri.fsPath);
         return uri;
     }
 

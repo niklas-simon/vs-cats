@@ -37,3 +37,7 @@ Fixed Extension not working because of change in API settings
 ### 1.1.1
 
 Fixed bug that cats were only displayed when running the extension in debug mode
+
+### 1.1.2
+
+Fixed bug that prevented extension from loading on non-linux devices
