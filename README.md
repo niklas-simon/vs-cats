@@ -24,3 +24,12 @@ empty for now. let's see for how long.
 ### 1.0.0
 
 Initial release of vs-cats
+
+### 1.0.1
+
+Fixed Extension not working because of change in API settings
+
+### 1.1.0
+
+- Moved from [Cat as a Service](https://cataas.com) to [The Cat API](https://thecatapi.com/) due to frequent downtime of Cat as a Service.
+- Fixed some minor Bugs

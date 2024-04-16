@@ -30,6 +30,7 @@ export default class LabelHighlighter {
     }
 
     private constructor() {
+        this.highlight();
         window.onDidChangeTextEditorVisibleRanges(() => this.highlight());
         window.onDidChangeActiveTextEditor(e => e && this.highlight());
         workspace.onDidChangeTextDocument(e => e.document === window.activeTextEditor?.document && this.highlight());
